@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>WpfApp1</id>
+    <version>1.0.0</version>
+    <authors>WpfApp1</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="Microsoft.Web.WebView2" version="1.0.1054.31" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework=".NETCoreApp3.1">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="C:\Users\NHN\source\repos\WpfApp1\bin\Debug\netcoreapp3.1\WpfApp1.runtimeconfig.json" target="lib\netcoreapp3.1\WpfApp1.runtimeconfig.json" />
+    <file src="C:\Users\NHN\source\repos\WpfApp1\bin\Debug\netcoreapp3.1\WpfApp1.dll" target="lib\netcoreapp3.1\WpfApp1.dll" />
+  </files>
+</package>

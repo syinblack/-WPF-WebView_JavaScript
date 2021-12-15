@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0016)http://localhost -->
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>웹뷰</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <script type="text/javascript">
+        // 2. 웹뷰에서만 실행되는 함수
+        // 2-1 JavaScript 메시지 띄우기
+        function ReceiveMessage(msg) {
+            alert(msg);
+        }
+
+        // 3. 네이티브로부터 호출받은 함수
+        // 3-1 (네이티브가 호출하면) 웹뷰에 현재 시간을 띄운다.
+        function WhatTimeIsItNow() {
+            var t = new Date();
+            alert(t);
+        }
+
+        // 3-2 네이티브가 전달한 매개변수로 웹뷰 inputA, inputB를 채운다.
+        function InputFromNative(a, b) {
+            document.getElementById("inputA").value = a;
+            document.getElementById("inputB").value = b;
+        }
+
+        // 4. 웹뷰(js)에서 네이티브 함수 호출
+        // 4-1 웹뷰에서 C# 메소드 호출
+        function SendMessage() {
+            var msg = 'JavaScript에서 네이티브 함수 호출';
+            window.external.MessageFromJavaScript(msg);
+        }
+
+        // 5. 양방향 통신 (C# -> js -> C#)
+        // 5-1 C#의 인풋을 JavaScript가 전달받고 계산한다. 해당 결과를 다시 C# 메시지로 돌려준다.
+        function CalculatorByJavaScript(cmd, a, b) {
+            var res;
+
+            document.getElementById("inputA").value = a;
+            document.getElementById("inputB").value = b;
+
+            if (cmd == 0)
+                res = Number(a) + Number(b);
+            else if (cmd == 1)
+                res = Number(a) - Number(b);
+            else if (cmd == 2)
+                res = Number(a) * Number(b);
+            else
+                res = Number(a) / Number(b);
+
+            document.getElementById("output").value = res;
+            // 네이티브로 메세지 전송
+            window.external.MessageFromJavaScript("계산 완료!")
+            window.external.ResultFromJavaScript(res);
+        }
+
+        function GetUri() {
+            var msg;
+
+            if (window.location.protocol == null) {
+                msg = "There isn't any protocol in WebView.";
+            }
+
+            window.external.MessageFromJavaScript("\nhref: " + window.location.href + "\nprotocol: " + msg);
+        }
+
+        function Uri_Calc(cmd) {
+
+            var param1 = document.getElementById("inputA").value;
+            var param2 = document.getElementById("inputB").value;
+
+            window.external.UriChangedFromJavaScript();
+            window.location = "calc:///C:/Users/NHN/source/repos/WpfApp1/page1.html?op=" + cmd +  "?param1=" + param1 + "?param2=" + param2;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>JavaScript 함수</h2>
+
+        <h3>계산기</h3>
+        <label for="inputA">WebView Input1</label>
+        <input id="inputA">
+        <label for="inputB">WebView Input2</label>
+        <input id="inputB">
+        <br />
+        <label for="output">WebView Output</label>
+        <textarea id="output"></textarea>
+
+        <br />
+        <h3>Native 메시지 호출</h3>
+        <button class="btn btn-primary" id="test1" onclick="SendMessage();">Send Message to Native</button>
+
+        <br />
+        <h3>JavaScript 메시지 호출</h3>
+        <button class="btn btn-success" id="test2" onclick="ReceiveMessage('자바스크립트 함수 직접 호출');">JavaScript Alert</button>
+
+        <br />
+        <label for="uri" style="font-size:20px">uri_resource</label>
+        <textarea id="uri" style="width:750px;height:50px"></textarea>
+        <button class="btn btn-warning" id="test3" onclick="GetUri();">GetUri</button>
+
+
+        <br />
+        <br />
+        <button class="btn btn-danger" id="test4" onclick="Uri_Calc('Add')">Add</button>
+        <button class="btn btn-danger" id="test5" onclick="Uri_Calc('Sub')">Sub</button>
+        <button class="btn btn-danger" id="test6" onclick="Uri_Calc('Mul')">Mul</button>
+        <button class="btn btn-danger" id="test7" onclick="Uri_Calc('Div')">Div</button>
+    </div>
+</body>
+</html>

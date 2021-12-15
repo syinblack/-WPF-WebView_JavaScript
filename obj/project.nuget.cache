@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Nmfdg2juKJ6XpeMEbIENtPVuS2zgHxc6jfmHAO6m0oyeELG3PcTma6csgOml5Vm5Rp84riKUsvEnjKvGeyD2/A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\NHN\\source\\repos\\WpfApp1\\WpfApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\NHN\\.nuget\\packages\\microsoft.web.webview2\\1.0.1054.31\\microsoft.web.webview2.1.0.1054.31.nupkg.sha512"
+  ],
+  "logs": []
+}
